@@ -3,7 +3,7 @@ websites=("https://google.com" "https://facebook.com" "https://twitter.com")
 logfile="website_status.log"
 for website in "${websites[@]}"
 do
-  response=$(curl -s -o /dev/null -w "%{http_code}" "$website")
+  response=$(curl -L -s -o /dev/null -w "%{http_code}" "$website")
   if [ "$response" -eq 200 ]; then
     status="UP"
   else
