@@ -1,20 +1,39 @@
 version: '3'
+
 services:
+
   app:
     build: .
     ports:
-      - '80:8000'
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - APP_HOME=/app
     depends_on:
       - postgres
+    networks:
+      - my_network
 
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
+    container_name: tsycshw2  #  Контейнер
     environment:
-      POSTGRES_DB: hw02
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 567234
+      POSTGRES_USER: postgres  # Користувач
+      POSTGRES_PASSWORD: 567234  # Пароль 
+      POSTGRES_DB: hw02  # База
     ports:
-      - '5432:5432'
+      - '5432:5432'  
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Збереження даних
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
+volumes:
+  postgres_data:
 
 
  
